@@ -8,7 +8,7 @@ Please refer to these links below for more information:
 """
 
 from dataclasses import asdict
-
+import os
 import streamlit as st
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -21,6 +21,7 @@ from tools.transformers.interface import GenerationConfig, generate_interactive
 #SDK模型下载
 from modelscope import snapshot_download
 model_dir = snapshot_download('mjh985/daiyu')
+hf_merge = os.path.join(model_dir, 'hf_merge')
 # download(model_repo='mjh985/daiyu-internlm', model_name='daiyu-internlm', output='./')
 logger = logging.get_logger(__name__)
 
@@ -32,11 +33,11 @@ def on_btn_click():
 @st.cache_resource
 def load_model():
     model = (
-        AutoModelForCausalLM.from_pretrained("./daiyu/hf_merge", trust_remote_code=True)
+        AutoModelForCausalLM.from_pretrained(hf_merge, trust_remote_code=True)
         .to(torch.bfloat16)
         .cuda()
     )
-    tokenizer = AutoTokenizer.from_pretrained("./daiyu/hf_merge", trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(hf_merge, trust_remote_code=True)
     return model, tokenizer
 
 
@@ -79,8 +80,8 @@ def main():
     model, tokenizer = load_model()
     print("load model end.")
 
-    user_avator = "doc/imgs/user.png"
-    robot_avator = "doc/imgs/robot.png"
+    user_avator = "./InternLM/doc/imgs/user.png"
+    robot_avator = "./InternLM/doc/imgs/robot.png"
 
     st.title("黛玉")
 
