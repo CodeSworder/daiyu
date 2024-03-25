@@ -1,8 +1,9 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
+from openxlab.model import download
 
-
-model_name_or_path = "/root/daiyu-internlm/hf_merge"
+download(model_repo='mjh985/daiyu-internlm', model_name='daiyu-internlm', output='./')
+model_name_or_path = "./daiyu-internlm/hf_merge"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(model_name_or_path, trust_remote_code=True, torch_dtype=torch.bfloat16, device_map='auto')
