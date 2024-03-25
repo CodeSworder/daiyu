@@ -16,11 +16,14 @@ from transformers.utils import logging
 
 from tools.transformers.interface import GenerationConfig, generate_interactive
 
-logger = logging.get_logger(__name__)
-from openxlab.model import download
 
-download(model_repo='mjh985/daiyu-internlm', model_name='daiyu-internlm', output='./')
-model_name_or_path = "./daiyu-internlm/hf_merge"
+
+#SDK模型下载
+from modelscope import snapshot_download
+model_dir = snapshot_download('mjh985/daiyu')
+# download(model_repo='mjh985/daiyu-internlm', model_name='daiyu-internlm', output='./')
+logger = logging.get_logger(__name__)
+
 
 def on_btn_click():
     del st.session_state.messages
@@ -29,11 +32,11 @@ def on_btn_click():
 @st.cache_resource
 def load_model():
     model = (
-        AutoModelForCausalLM.from_pretrained("./daiyu-internlm/hf_merge", trust_remote_code=True)
+        AutoModelForCausalLM.from_pretrained("./daiyu/hf_merge", trust_remote_code=True)
         .to(torch.bfloat16)
         .cuda()
     )
-    tokenizer = AutoTokenizer.from_pretrained("./daiyu-internlm/hf_merge", trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained("./daiyu/hf_merge", trust_remote_code=True)
     return model, tokenizer
 
 
@@ -76,8 +79,8 @@ def main():
     model, tokenizer = load_model()
     print("load model end.")
 
-    user_avator = "./InternLM/doc/imgs/user.png"
-    robot_avator = "./InternLM/doc/imgs/robot.png"
+    user_avator = "doc/imgs/user.png"
+    robot_avator = "doc/imgs/robot.png"
 
     st.title("黛玉")
 
