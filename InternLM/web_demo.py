@@ -2,7 +2,7 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 import torch
 import streamlit as st
-
+import os
 from modelscope import snapshot_download
 
 # 在侧边栏中创建一个标题和一个链接
@@ -36,7 +36,7 @@ def get_model():
     model.eval()  
     return tokenizer, model
 
-# 加载Chatglm3的model和tokenizer
+# 加载model和tokenizer
 tokenizer, model = get_model()
 
 # 如果session_state中没有"messages"，则创建一个包含默认消息的列表
