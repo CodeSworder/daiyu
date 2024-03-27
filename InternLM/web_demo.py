@@ -22,9 +22,8 @@ st.caption("🚀 A streamlit chatbot powered by InternLM2 QLora")
 # 定义模型路径
 
 model_dir = snapshot_download('mjh985/daiyu')
-hf_merge = os.path.join(model_dir, 'hf_merge')
+model_name_or_path = os.path.join(model_dir, 'hf_merge')
 
-model_name_or_path = hf_merge
 
 # 定义一个函数，用于获取模型和tokenizer
 @st.cache_resource
