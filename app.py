@@ -49,7 +49,7 @@ if prompt := st.chat_input():
     # 在聊天界面上显示用户的输入
     st.chat_message("user").write(prompt)
     # 构建输入     
-    response, history = model.chat(tokenizer, prompt, system_prompt, history=st.session_state.messages)
+    response, history = model.chat(tokenizer, prompt, meta_instruction=system_prompt, history=st.session_state.messages)
     # 将模型的输出添加到session_state中的messages列表中
     st.session_state.messages.append((prompt, response))
     # 在聊天界面上显示模型的输出
