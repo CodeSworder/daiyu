@@ -8,16 +8,13 @@ from modelscope import snapshot_download
 # 在侧边栏中创建一个标题和一个链接
 with st.sidebar:
     st.markdown("## InternLM LLM")
-    "[InternLM](https://github.com/InternLM/InternLM.git)"
-    "[开源大模型食用指南 self-llm](https://github.com/datawhalechina/self-llm.git)"
-    "[Chat嬛嬛](https://github.com/KMnO4-zx/huanhuan-chat.git)"
     # 创建一个滑块，用于选择最大长度，范围在0到1024之间，默认值为512
     max_length = st.slider("max_length", 0, 1024, 512, step=1)
     system_prompt = st.text_input("System_Prompt", "现在你要扮演红楼梦里最古灵精怪的女孩子--黛玉")
 
 # 创建一个标题和一个副标题
 st.title("💬 InternLM2-Chat-7B—v1_1 黛玉版")
-st.caption("🚀 A streamlit chatbot powered by InternLM2 QLora")
+st.caption("🚀 A streamlit chatbot powered by InternLM1 QLora")
 
 # 定义模型路径
 
@@ -52,7 +49,7 @@ if prompt := st.chat_input():
     # 在聊天界面上显示用户的输入
     st.chat_message("user").write(prompt)
     # 构建输入     
-    response, history = model.chat(tokenizer, prompt, meta_instruction=system_prompt, history=st.session_state.messages)
+    response, history = model.chat(tokenizer, prompt, system_prompt, history=st.session_state.messages)
     # 将模型的输出添加到session_state中的messages列表中
     st.session_state.messages.append((prompt, response))
     # 在聊天界面上显示模型的输出
