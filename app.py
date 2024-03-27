@@ -14,7 +14,7 @@ with st.sidebar:
 
 # 创建一个标题和一个副标题
 st.title("💬 InternLM2-Chat-7B—v1_1 黛玉版")
-st.caption("🚀 A streamlit chatbot powered by InternLM2 QLora")
+st.caption("🚀 A streamlit chatbot powered by InternLM QLora")
 
 # 定义模型路径
 
